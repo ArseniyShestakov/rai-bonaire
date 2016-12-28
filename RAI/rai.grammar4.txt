@@ -1,0 +1,37 @@
+root ::= sections
+sections ::= section sections
+section ::= 'SECTION_START' 'CHIP_INFO' statements 'SECTION_END'
+section ::= 'SECTION_START' 'CHIP_SPACES' chipspaces 'SECTION_END'
+section ::= 'SECTION_START' 'CHIP_STREAMS' '[a-zA-Z0-9_]*' 'SECTION_END'
+section ::= 'SECTION_START' 'CHIP_MEMORIES' '[a-zA-Z0-9_]*' 'SECTION_END'
+section ::= 'SECTION_START' 'CHIP_PARAMETERS' '[a-zA-Z0-9_]*' 'SECTION_END'
+section ::= 'SECTION_START' 'BLOCK_INFO' statements 'SECTION_END'
+section ::= 'SECTION_START' 'BLOCK_REGISTERS' register 'SECTION_END'
+register ::= title spaces size rattribute '{' fields '}' ';'
+register ::= title spaces size '{' fields '}' ';'
+title ::= '[a-zA-Z0-9_]*'
+spaces ::= space spaces
+space ::= '<' '[a-zA-Z0-9_:]*' '>'
+offset ::= '[a-zA-Z0-9_]*'
+size ::= '[0-9]*'
+rattribute ::= '^R$|^W$|^RW$|^OVERLAP$'
+fields ::= field fields
+field ::= fname frange ftype ';'
+field ::= fname frange ftype fattribute ';'
+fname ::= '[a-zA-Z0-9_]*'
+frange ::= '^[0-9]*:[0-9]*$'
+ftype ::='^NUM$'
+ftype ::='^ALPHA$' '{' fieldtexts '}'
+fieldtexts ::= fieldtext fieldtexts
+fieldtext ::= quoted '=' '[a-zA-Z0-9]*'
+ftype ::='^ALPHA$' '{' quoted '=' '[a-zA-Z0-9]*' ',' '}'
+quoted ::= '`.*?(?:(?:``){1,}`|(?<![`\\\\])`(?!`)|\\\\`{2})|".*?(?:(?:""){1,}"|(?<!["\\\\])"(?!")|\\\\"{2})|\'.*?(?:(?:\'\'){1,}\'|(?<![\'\\\\])\'(?!\')|\\\\\'{2})'
+ftype ::='^INDEX$' '=' '[a-zA-Z0-9_]*'
+ftype ::='^DATA$' '=' '[a-zA-Z0-9_]*'
+fattribute ::= '^R$|^W$|^RW$'
+chipspaces ::= chipspace chipspaces
+chipspace ::= 'CHIP_SPACE' '[a-zA-Z0-9_]*' '{' statements '}' ';'
+statements ::= statement statements
+statement ::=  leftclause '=' rightclause ';'
+rightclause ::= '[a-zA-Z0-9]*|`.*?(?:(?:``){1,}`|(?<![`\\\\])`(?!`)|\\\\`{2})|".*?(?:(?:""){1,}"|(?<!["\\\\])"(?!")|\\\\"{2})|\'.*?(?:(?:\'\'){1,}\'|(?<![\'\\\\])\'(?!\')|\\\\\'{2})'
+leftclause ::= '((?!^(}|SECTION_END)$).*)'

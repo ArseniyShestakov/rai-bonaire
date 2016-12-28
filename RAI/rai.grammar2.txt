@@ -1,0 +1,23 @@
+root ::= sections
+section ::= 'SECTION_START' sectionbody 'SECTION_END'
+section ::= section section
+sections ::= section
+sectionbody ::= 'CHIP_INFO' statements
+sectionbody ::= 'CHIP_SPACES' word
+sectionbody ::= 'CHIP_STREAMS' word
+sectionbody ::= 'CHIP_MEMORIES' word
+sectionbody ::= 'CHIP_PARAMETERS' word
+sectionbody ::= 'BLOCK_INFO' word
+sectionbody ::= 'BLOCK_REGISTERS' word
+word ::= '[a-zA-Z0-9_]*'
+statements ::= statement
+statements ::= statement statement
+statements ::= statement statement statement
+statements ::= statement statement statement statement
+statements ::= statement statement statement statement statement statement
+statements ::= statement statement statement statement statement statement statement
+statements ::= statement statement statement statement statement statement statement statement
+statements ::= statement statement statement statement statement statement statement statement statement
+statements ::= statement statement statement statement statement statement statement statement statement statement
+statement ::=  statementclause '=' statementclause ';'
+statementclause ::= '^m[a-zA-Z0-9_]*'

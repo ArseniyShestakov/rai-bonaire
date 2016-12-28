@@ -1,0 +1,22 @@
+root ::= sections
+sections ::= section
+sections ::= section section
+sections ::= section section section
+sections ::= section section section section
+sections ::= section section section section section
+sections ::= section section section section section section
+section ::= 'SECTION_START' sectionbody 'SECTION_END'
+sectionbody ::= 'CHIP_INFO' statements
+sectionbody ::= 'CHIP_SPACES' word
+sectionbody ::= 'CHIP_STREAMS' word
+sectionbody ::= 'CHIP_MEMORIES' word
+sectionbody ::= 'CHIP_PARAMETERS' word
+sectionbody ::= 'BLOCK_INFO' word
+sectionbody ::= 'BLOCK_REGISTERS' word
+statements ::= statement
+statements ::= statement statement
+statements ::= statement statement statement
+statements ::= statement statement statement statement
+statements ::= statement statement statement statement statement
+statement ::= word '=' word ';'
+word ::= '[a-zA-Z0-9]*'
